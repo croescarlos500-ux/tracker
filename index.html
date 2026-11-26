@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10151d">
+<title>Riven Atlas — Warframe Riven Guide</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1219;--panel:#151e29;--panel2:#1b2735;--line:#2b3a4d;--text:#e8eef6;--muted:#9aabc0;--cyan:#70d7e7;--gold:#f1c777;--green:#8bd5a7}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#20364a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:30px max(22px,calc((100vw - 1180px)/2)) 22px;border-bottom:1px solid var(--line);background:#101821d9}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase}
+h1{margin:5px 0 4px;font-size:clamp(28px,5vw,42px);letter-spacing:-.04em}header p{margin:0;color:var(--muted);max-width:700px}
+main{max-width:1180px;margin:auto;padding:24px 22px 60px}
+.toolbar{display:grid;grid-template-columns:minmax(220px,1fr) 190px auto;gap:10px;margin-bottom:18px}
+input,select,button{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;outline:none}
+input:focus,select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #70d7e722}
+button{cursor:pointer;font-weight:700}button:hover{border-color:var(--cyan)}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:linear-gradient(160deg,#182330,#121a24);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.panel-head{padding:15px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.panel-head h2,.panel-head h3{margin:0;font-size:14px;letter-spacing:.04em;text-transform:uppercase}
+.count{font-size:12px;color:var(--muted)}
+.weapon-list{max-height:690px;overflow:auto;padding:7px}
+.weapon{display:block;width:100%;text-align:left;background:transparent;border:1px solid transparent;padding:9px 11px;border-radius:8px;color:#c9d5e3;font-weight:600}
+.weapon:hover{background:var(--panel2);border-color:var(--line)}
+.weapon.active{background:#203747;border-color:#39758a;color:#fff}
+.detail{min-height:420px}
+.detail-top{padding:22px 23px 18px;background:linear-gradient(110deg,#1d3342,#172330 70%);border-bottom:1px solid var(--line)}
+.detail-top .tag{font-size:11px;color:var(--cyan);font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.detail-top h2{font-size:clamp(24px,4vw,34px);margin:4px 0 0;letter-spacing:-.03em}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:17px}
+.stat-card{background:#101821;border:1px solid var(--line);border-radius:11px;padding:15px;min-height:110px}
+.stat-card h3{margin:0 0 12px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+.stat-value{font-size:21px;font-weight:800;color:var(--gold);word-break:break-word}
+.stat-sub{color:var(--muted);font-size:12px;margin-top:6px}
+.section{padding:0 17px 17px}
+.section h3{font-size:12px;color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;margin:5px 0 10px}
+.extra,.notes{background:#101821;border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:#d4dfeb;white-space:pre-wrap}
+.notes{border-left:3px solid var(--gold);color:#c2cfdd}
+.actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 17px 18px}
+.small{font-size:12px;color:var(--muted)}
+.empty{padding:32px;text-align:center;color:var(--muted)}
+.tabs{display:flex;gap:8px;margin:0 0 14px}
+.tab{padding:9px 13px;font-size:13px;background:transparent}.tab.active{background:#203747;border-color:#39758a}
+.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.gloss{background:#101821;border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.gloss b{color:var(--gold);margin-right:8px}.gloss span{color:var(--muted);font-size:13px}
+footer{max-width:1180px;margin:auto;padding:0 22px 30px;color:#77899d;font-size:12px}
+@media(max-width:760px){.toolbar{grid-template-columns:1fr 1fr}.toolbar input{grid-column:1/-1}.layout{grid-template-columns:1fr}.weapon-list{max-height:260px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.cards{grid-template-columns:1fr 1fr}.glossary{grid-template-columns:1fr}}
+@media(max-width:430px){.cards{grid-template-columns:1fr}.weapon-list{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><div class="eyebrow">Community reference · Riven rolls</div><h1>Riven Atlas</h1><p>Search a weapon to view its recommended Riven preferences with full stat names, alternate rolls and source notes. Built from your supplied guide.</p></header>
+<main>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Search weapons… (e.g. Torid, Braton)" autocomplete="off" aria-label="Search weapons">
+    <select id="sort" aria-label="Sort weapons"><option value="az">Name: A–Z</option><option value="za">Name: Z–A</option></select>
+    <button id="clear" type="button">Clear selection</button>
+  </div>
+  <div class="tabs"><button class="tab active" data-tab="weapons">Weapon guide</button><button class="tab" data-tab="glossary">Abbreviations</button></div>
+  <section id="weapons-view" class="layout">
+    <aside class="panel"><div class="panel-head"><h2>Weapons</h2><span class="count" id="count"></span></div><div class="weapon-list" id="weapon-list"></div></aside>
+    <article class="panel detail" id="detail"><div class="empty">Select a weapon from the list or type its name in search.</div></article>
+  </section>
+  <section id="glossary-view" class="panel" hidden><div class="panel-head"><h2>Abbreviations</h2><span class="count" id="gloss-count"></span></div><div style="padding:14px"><input id="gloss-search" type="search" placeholder="Search abbreviation or meaning…" style="width:100%;margin-bottom:12px"><div class="glossary" id="glossary"></div></div></section>
+</main>
+<footer>Reference data is reproduced from the guide supplied for this project. Recommendations are not independently verified or updated by this site. GitHub Pages compatible · No backend or external libraries.</footer>
+<script src="data.js"></script>
+<script>
+(() => {
+ const data=window.RIVEN_DATA||{weapons:[],abbreviations:[]};
+ const $=id=>document.getElementById(id);
+ let selected=null, tab="weapons";
+ const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+ const weapons=[...data.weapons].sort((a,b)=>a.name.localeCompare(b.name));
+ function filtered(){let q=$("search").value.trim().toLowerCase();let arr=weapons.filter(w=>w.name.toLowerCase().includes(q));if($("sort").value==="za")arr.reverse();return arr}
+ function renderList(){let arr=filtered();$("count").textContent=arr.length+" / "+weapons.length;$("weapon-list").innerHTML=arr.map(w=>`<button class="weapon ${selected===w.name?"active":""}" data-name="${esc(w.name)}">${esc(w.name)}</button>`).join("")||'<div class="empty">No matching weapons.</div>'}
+ function renderDetail(){let w=weapons.find(x=>x.name===selected);if(!w){$("detail").innerHTML='<div class="empty">Select a weapon from the list or type its name in search.</div>';return}
+ const labels=["Positive 1","Positive 2","Positive 3","Negative"];
+ const descriptions=["First positive stat","Second positive stat","Third positive stat","Preferred negative stat"];
+ const cards=labels.map((label,i)=>`<div class="stat-card"><h3>${label}</h3><div class="stat-value">${esc(w.preferences[i]||"—")}</div><div class="stat-sub">${descriptions[i]}</div></div>`).join("");
+ $("detail").innerHTML=`<div class="detail-top"><div class="tag">Weapon profile</div><h2>${esc(w.name)}</h2></div><div class="cards">${cards}</div>
+ ${w.additional?`<div class="section"><h3>Additional / alternate rolls</h3><div class="extra">${esc(w.additional)}</div></div>`:""}
+ ${w.notes?`<div class="section"><h3>Source notes</h3><div class="notes">${esc(w.notes)}</div></div>`:""}
+ <div class="actions"><button id="copy">Copy roll summary</button><a href="https://warframe.fandom.com/wiki/Special:Search?query=${encodeURIComponent(w.name)}" target="_blank" rel="noopener" style="align-self:center;color:var(--cyan);font-size:13px">Search Warframe Wiki ↗</a></div>`;
+ $("copy").addEventListener("click",async()=>{let txt=`${w.name}\n${labels.map((l,i)=>`${l}: ${w.preferences[i]||"—"}`).join("\n")}${w.additional?`\nAdditional rolls: ${w.additional}`:""}${w.notes?`\nNotes: ${w.notes}`:""}`;try{await navigator.clipboard.writeText(txt);$("copy").textContent="Copied!";setTimeout(()=>$("copy").textContent="Copy roll summary",1400)}catch(e){$("copy").textContent="Copy unavailable"}});
+ }
+ function select(name){selected=name;renderList();renderDetail()}
+ $("weapon-list").addEventListener("click",e=>{let b=e.target.closest("[data-name]");if(b)select(b.dataset.name)});
+ $("search").addEventListener("input",()=>{renderList();let exact=filtered().find(w=>w.name.toLowerCase()===$("search").value.trim().toLowerCase());if(exact)select(exact.name)});
+ $("sort").addEventListener("change",renderList);
+ $("clear").addEventListener("click",()=>{$("search").value="";selected=null;renderList();renderDetail()});
+ document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>{tab=b.dataset.tab;document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x===b));$("weapons-view").hidden=tab!=="weapons";$("glossary-view").hidden=tab!=="glossary"}));
+ function renderGloss(){let q=$("gloss-search").value.toLowerCase().trim();let arr=data.abbreviations.filter(x=>(x.term+" "+x.short+" "+x.detail).toLowerCase().includes(q));$("gloss-count").textContent=arr.length+" entries";$("glossary").innerHTML=arr.map(x=>`<div class="gloss"><b>${esc(x.short)}</b>${esc(x.term)}${x.detail?`<div class="small" style="margin-top:5px">${esc(x.detail)}</div>`:""}</div>`).join("")||'<div class="empty">No matching abbreviations.</div>'}
+ $("gloss-search").addEventListener("input",renderGloss);
+ renderList();renderDetail();renderGloss();
+})();
+</script>
+</body></html>
